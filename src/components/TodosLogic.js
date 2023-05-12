@@ -1,54 +1,49 @@
-import React from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-import { useState } from "react";
-import InputTodo from "./InputTodo";
-import TodosList from "./TodoList";
+import InputTodo from './InputTodo';
+import TodosList from './TodoList';
 
 const TodosLogic = () => {
   const [todos, setTodos] = useState([
     {
       id: uuidv4(),
-      title: "Setup development environment",
+      title: 'Setup development environment',
       completed: true,
     },
     {
       id: 2,
-      title: "Develop website and add content",
+      title: 'Develop website and add content',
       completed: false,
     },
     {
       id: 3,
-      title: "Deploy to live server",
+      title: 'Deploy to live server',
       completed: false,
     },
   ]);
   const handleChange = (id) => {
-    setTodos((prevState) =>
-      prevState.map((todo) => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            completed: !todo.completed,
-          };
-        }
-        return todo;
-      })
-    );
+    setTodos((prevState) => prevState.map((todo) => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          completed: !todo.completed,
+        };
+      }
+      return todo;
+    }));
   };
 
   const delTodo = (id) => {
     setTodos([
-      ...todos.filter((todo) => {
-        return todo.id !== id;
-      }),
+      ...todos.filter((todo) => todo.id !== id),
     ]);
   };
 
   const addTodoItem = (title) => {
     const newTodo = {
       id: 4,
-      title: title,
+      title,
       completed: false,
     };
     setTodos([...todos, newTodo]);
@@ -61,10 +56,9 @@ const TodosLogic = () => {
           todo.title = updatedTitle;
         }
         return todo;
-      })
+      }),
     );
   };
-
 
   return (
     <div>
@@ -72,7 +66,8 @@ const TodosLogic = () => {
       <TodosList
         todosProps={todos}
         handleChange={handleChange}
-        delTodo={delTodo}  setUpdate={setUpdate}
+        delTodo={delTodo}
+        setUpdate={setUpdate}
       />
     </div>
   );

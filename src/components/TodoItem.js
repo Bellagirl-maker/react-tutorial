@@ -1,26 +1,28 @@
-import React from "react";
-import { useState } from "react";
-import styles from "../styles/TodoItem.module.css";
+import React, { useState } from 'react';
 
-const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
+import styles from '../styles/TodoItem.module.css';
+
+const TodoItem = ({
+  itemProp, handleChange, delTodo, setUpdate,
+}) => {
   const [editing, setEditing] = useState(false);
   const completedStyle = {
-    fontStyle: "italic",
-    color: "#595959",
+    fontStyle: 'italic',
+    color: '#595959',
     opacity: 0.4,
-    textDecoration: "line-through",
+    textDecoration: 'line-through',
   };
 
   const handleEditing = () => {
     setEditing(true);
   };
 
-  let viewMode = {};
-  let editMode = {};
+  const viewMode = {};
+  const editMode = {};
   if (editing) {
-    viewMode.display = "none";
+    viewMode.display = 'none';
   } else {
-    editMode.display = "none";
+    editMode.display = 'none';
   }
 
   const handleUpdatedDone = (event) => {
@@ -37,8 +39,8 @@ const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
           checked={itemProp.completed}
           onChange={() => handleChange(itemProp.id)}
         />
-        <button onClick={handleEditing}>Edit</button>
-        <button onClick={() => delTodo(itemProp.id)}>Delete</button>
+        <button onClick={handleEditing} type="button">Edit</button>
+        <button onClick={() => delTodo(itemProp.id)} type="button">Delete</button>
         <span style={itemProp.completed ? completedStyle : null}>
           {itemProp.title}
         </span>
@@ -47,7 +49,9 @@ const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
         type="text"
         value={itemProp.title}
         className={styles.textInput}
-        style={editMode} onChange={(e) => setUpdate(e.target.value, itemProp.id)} onKeyDown={handleUpdatedDone}
+        style={editMode}
+        onChange={(e) => setUpdate(e.target.value, itemProp.id)}
+        onKeyDown={handleUpdatedDone}
       />
     </li>
   );
